@@ -1,0 +1,102 @@
+<div class="param">
+    <div class="skill">
+        <h2>{{ .Site.Params.about.paramTitle }}</h2>
+        {{- range .Site.Params.about.parameter -}}
+        <div class="box">
+            <p>{{ .language }}</p>
+            <p>{{ .level }}%</p>
+            <div class="bar">
+                <div class="level" style="width: {{ .level }}%"></div>
+            </div>
+        </div>
+        {{- end -}}
+    </div>
+    <div class="content exp">
+        {{- with .Site.Params.about.tag -}}
+        <div class="tag-cloud">
+            {{- range . -}}
+            <span class="tag-item">#{{ .name }}</span>
+            {{- end -}}
+        </div>
+        {{- end -}}
+        {{- with .Summary -}}
+        <div class="summary-text">{{ . | markdownify }}</div>
+        {{- end -}}
+    </div>
+</div>
+
+<style>
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.25rem 0 0.75rem;
+}
+.tag-item {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    border-radius: 1rem;
+    border: 1.5px solid transparent;
+    transition: all 0.25s ease;
+    cursor: default;
+}
+/* 7-color palette — each tag gets its own hue */
+.tag-item:nth-child(7n+1) { color: #3b7dc4; background: #e8f2fb; border-color: #d0e4f7; }
+.tag-item:nth-child(7n+2) { color: #7b4bb8; background: #f2ebf9; border-color: #e2d3f2; }
+.tag-item:nth-child(7n+3) { color: #1e9885; background: #e2f5f1; border-color: #c5ede4; }
+.tag-item:nth-child(7n+4) { color: #d4784a; background: #fdf1e9; border-color: #f9dfce; }
+.tag-item:nth-child(7n+5) { color: #c9446a; background: #fdeaf1; border-color: #f9d2e0; }
+.tag-item:nth-child(7n+6) { color: #5b7fab; background: #edf2f8; border-color: #d6e2f0; }
+.tag-item:nth-child(7n+0) { color: #8d6ca6; background: #f4eff8; border-color: #e7ddf0; }
+
+.tag-item:hover {
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    border-color: transparent !important;
+}
+.tag-item:nth-child(7n+1):hover { background: #3b7dc4; }
+.tag-item:nth-child(7n+2):hover { background: #7b4bb8; }
+.tag-item:nth-child(7n+3):hover { background: #1e9885; }
+.tag-item:nth-child(7n+4):hover { background: #d4784a; }
+.tag-item:nth-child(7n+5):hover { background: #c9446a; }
+.tag-item:nth-child(7n+6):hover { background: #5b7fab; }
+.tag-item:nth-child(7n+0):hover { background: #8d6ca6; }
+
+[theme=dark] .tag-item:nth-child(7n+1) { color: #7db8e8; background: #1d2d40; border-color: #2a4560; }
+[theme=dark] .tag-item:nth-child(7n+2) { color: #b892e0; background: #261f33; border-color: #3d2f52; }
+[theme=dark] .tag-item:nth-child(7n+3) { color: #5cc4b2; background: #1a2f2b; border-color: #264d44; }
+[theme=dark] .tag-item:nth-child(7n+4) { color: #e89f78; background: #33221a; border-color: #523a2c; }
+[theme=dark] .tag-item:nth-child(7n+5) { color: #e27290; background: #301e25; border-color: #4f303b; }
+[theme=dark] .tag-item:nth-child(7n+6) { color: #8db4d4; background: #1c2733; border-color: #334a60; }
+[theme=dark] .tag-item:nth-child(7n+0) { color: #b89ad0; background: #241f2c; border-color: #42384f; }
+
+[theme=dark] .tag-item:hover {
+    color: #fff !important;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+.param .skill {
+    min-height: 15rem;
+    max-height: 15rem;
+}
+.param .exp {
+    min-height: 10rem;
+    max-height: 10rem;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+.param {
+    min-height: 28rem;
+    max-height: 28rem;
+}
+.summary-text {
+    margin-top: 0.5rem;
+}
+.summary-text p {
+    margin: 0.25rem 0;
+}
+</style>
