@@ -1,4 +1,4 @@
-baseURL = "baseURL = "https://LoveShalom.github.io/personal_web/"   
+baseURL = "https://LoveShalom.github.io/personal_web/"
 # [en, zh-cn, fr, pl, ...] determines default content language
 # [en, zh-cn, fr, pl, ...] 设置默认的语言
 defaultContentLanguage = "zh-cn"
@@ -31,11 +31,12 @@ ignoreErrors = ["err-missing-comment-accesstoken", "err-missing-oembed-accesstok
 [languages]
   [languages.en]
     weight = 1
+    # language code
+    locale = "en"
+    # language name
+    label = "English"
+    # whether to include Chinese/Japanese/Korean
     hasCJKLanguage = false
-  # ... 其他配置保持不变
-    [languages.en.params]
-      locale = "en"      # ✅ 正确位置
-      label = "English"  # ✅ 正确位置
     # copyright description used only for seo schema
     copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
     # Menu config
@@ -213,11 +214,12 @@ ignoreErrors = ["err-missing-comment-accesstoken", "err-missing-oembed-accesstok
 
   [languages.zh-cn]
     weight = 2
+    # 网站语言, 仅在这里 CN 大写
+    locale = "zh-CN"
+    # 语言名称
+    label = "简体中文"
+    # 是否包括中日韩文字
     hasCJKLanguage = true
-    # ... 其他配置保持不变
-    [languages.zh-cn.params]
-      locale = "zh-CN"      # ✅ 正确位置
-      label = "简体中文"  # ✅ 正确位置
     # 版权描述，仅仅用于 SEO
     copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
     # 菜单配置
@@ -384,11 +386,12 @@ ignoreErrors = ["err-missing-comment-accesstoken", "err-missing-oembed-accesstok
 
   [languages.fr]
     weight = 3
+    # language code
+    locale = "fr"
+    # language name
+    label = "Français"
+    # whether to include Chinese/Japanese/Korean
     hasCJKLanguage = false
-    # ... 其他配置保持不变
-    [languages.fr.params]
-      locale = "fr"      # ✅ 正确位置
-      label = "Français"  # ✅ 正确位置
     # copyright description used only for seo schema
     copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
     # Menu config
