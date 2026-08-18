@@ -79,8 +79,8 @@ if ($branch -ne 'master') {
     Write-Host "注意：当前分支是 $branch，GitHub Actions 只在 master 分支推送时自动构建部署。" -ForegroundColor Yellow
 }
 
-# 收集本次改动
-$changed = @(& git status --porcelain)
+# 收集本次改动（-uall 让未跟踪目录展开为单个文件；关闭 quotepath 避免中文路径被转义）
+$changed = @(& git -c core.quotepath=false status --porcelain -uall)
 
 # 未推送的本地提交数（比如上次推送失败时留下的）
 $unpushed = 0
@@ -92,14 +92,16 @@ if ($changed.Count -eq 0 -and $unpushed -eq 0) {
     exit 0
 }
 
+# porcelain 每行固定格式：前两个字符是状态（XY），第 4 个字符起是路径
 $contentFiles = @()   # 所有改动的文章文件
 $newPostPaths = @()   # 新增（A / ??）的文章文件
 foreach ($line in $changed) {
-    $parts = $line -split '\s+'
-    $status = $parts[0]
-    $path = $parts[-1]
-    if ($status[0] -eq 'D') { continue }                   # 已删除的文件跳过
-    if ($path -notmatch '^content/.+\.md$') { continue }   # 只关心文章
+    $status = $line.Substring(0, 2)
+    $path = $line.Substring(3)
+    if ($path -match ' -> ') { $path = ($path -split ' -> ')[-1] }   # 重命名取新路径
+    if ($status[0] -eq 'D' -or $status[1] -eq 'D') { continue }      # 已删除的文件跳过
+    if ($path -notmatch '^content/.+\.md$') { continue }             # 只关心文章
+    if (-not (Test-Path -LiteralPath $path)) { continue }            # 路径已不存在时跳过
     $contentFiles += $path
     if ($status[0] -in @('A', '?')) { $newPostPaths += $path }
 }
